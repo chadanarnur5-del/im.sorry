@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ты простишь меня?</title>
-    <!-- Подключаем библиотеку для конфетти -->
+    <!-- Подключение библиотеки для эффекта конфетти -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
@@ -25,9 +25,9 @@
 
         .card {
             background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            padding: 35px 30px;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             text-align: center;
             max-width: 400px;
             width: 90%;
@@ -35,57 +35,61 @@
         }
 
         .img-container {
-            width: 150px;
-            height: 150px;
+            width: 180px;
+            height: 180px;
             margin: 0 auto 20px auto;
-            border-radius: 15px;
+            border-radius: 20px;
             overflow: hidden;
+            background-color: #f0f0f0;
         }
 
         .img-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
         }
 
         h1 {
-            color: #2c3e50;
+            color: #1c1e21;
             font-size: 24px;
+            font-weight: 700;
             margin-bottom: 25px;
         }
 
         .buttons-container {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            align-items: center;
+            gap: 15px;
             min-height: 50px;
             position: relative;
         }
 
         button {
-            padding: 10px 25px;
+            padding: 12px 28px;
             font-size: 18px;
-            font-weight: bold;
+            font-weight: 600;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             cursor: pointer;
-            transition: transform 0.2s, background-color 0.2s;
+            transition: transform 0.15s ease, background-color 0.2s;
         }
 
         #yesBtn {
-            background-color: #4A90E2;
+            background-color: #3b82f6;
             color: white;
             z-index: 10;
         }
 
         #yesBtn:hover {
-            background-color: #357ABD;
-            transform: scale(1.05);
+            background-color: #2563eb;
+            transform: scale(1.03);
         }
 
         #noBtn {
-            background-color: #e0e0e0;
-            color: #333;
+            background-color: #e5e7eb;
+            color: #374151;
             position: absolute;
         }
 
@@ -94,30 +98,29 @@
         }
 
         .letter-screen p {
-            color: #555;
+            color: #4b5563;
             line-height: 1.6;
             margin-top: 15px;
-            font-size: 15px;
+            font-size: 16px;
             text-align: left;
         }
 
         .restart-btn {
-            margin-top: 20px;
-            background-color: #f0f0f0;
-            color: #666;
+            margin-top: 25px;
+            background-color: #f3f4f6;
+            color: #6b7280;
             font-size: 14px;
-            padding: 8px 15px;
+            padding: 8px 16px;
         }
     </style>
 </head>
 <body>
 
     <div class="card" id="card">
-        <!-- Шаг 1: Вопрос -->
+        <!-- Первый шаг: Вопрос -->
         <div id="questionScreen">
             <div class="img-container">
-                <!-- Грустный котик / эмодзи -->
-                <img id="mainImage" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3Z2eWFyOHR5eXBmNWUzb3Jyc2s5ZHFtdmZ5b3JpZXNwb2Z6eWZqbiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/L9543g02v4EOM/giphy.gif" alt="Грустный кот">
+                <img id="mainImage" src="photo.jpg" alt="Мужчина в коробке">
             </div>
             <h1 id="titleText">Ты простишь меня? 🥺</h1>
             <div class="buttons-container" id="btnContainer">
@@ -126,13 +129,13 @@
             </div>
         </div>
 
-        <!-- Шаг 2: Письмо после согласия -->
+        <!-- Второй шаг: Письмо -->
         <div id="letterScreen" class="letter-screen">
             <div class="img-container">
-                <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" alt="Счастливый кот">
+                <img src="photo.jpg" alt="Мужчина в коробке">
             </div>
             <h1>Я знал(а), что ты меня простишь! ❤️</h1>
-            <p>Я правда очень сожалею о том, что произошло. Ты очень важен(на) для меня, и я никогда не хотел(а) тебя обидеть. Обещаю делать всё, чтобы больше тебя не расстраивать!</p>
+            <p>Спасибо за твое понимание. Ты очень важена для меня, и я сделаю всё возможное, чтобы больше тебя не расстраивать! ✨</p>
             <button class="restart-btn" onclick="location.reload()">Начать заново</button>
         </div>
     </div>
@@ -144,23 +147,18 @@
         const letterScreen = document.getElementById('letterScreen');
         const btnContainer = document.getElementById('btnContainer');
 
-        // Выравниваем первоначальное положение кнопки "Нет" рядом с "Да"
         function alignButtons() {
-            const yesRect = yesBtn.getBoundingClientRect();
-            const containerRect = btnContainer.getBoundingClientRect();
-            noBtn.style.left = (yesBtn.offsetLeft + yesBtn.offsetWidth + 20) + 'px';
+            noBtn.style.left = (yesBtn.offsetLeft + yesBtn.offsetWidth + 15) + 'px';
             noBtn.style.top = yesBtn.offsetTop + 'px';
         }
 
         window.onload = alignButtons;
 
-        // Убегающая кнопка "Нет" при наведении или клике
         function moveNoButton() {
             const card = document.getElementById('card');
             const cardRect = card.getBoundingClientRect();
             const btnRect = noBtn.getBoundingClientRect();
 
-            // Генерируем случайные координаты внутри карточки
             const maxX = cardRect.width - btnRect.width - 20;
             const maxY = cardRect.height - btnRect.height - 20;
 
@@ -175,15 +173,13 @@
         noBtn.addEventListener('mouseover', moveNoButton);
         noBtn.addEventListener('click', moveNoButton);
 
-        // Нажатие на "Да"
         yesBtn.addEventListener('click', () => {
             questionScreen.style.display = 'none';
             letterScreen.style.display = 'block';
 
-            // Запуск эффекта конфетти
             confetti({
-                particleCount: 100,
-                spread: 70,
+                particleCount: 120,
+                spread: 80,
                 origin: { y: 0.6 }
             });
         });
